@@ -2,6 +2,7 @@
 const urlParams = new URLSearchParams(window.location.search);
 const urlLine = urlParams.get("lines") || 5;
 const urlSpeed = urlParams.get("speed") || 5;
+const followMouse = urlParams.get("mouse") || false;
 $("#lines").val(urlLine);
 $("#speed").val(urlSpeed);
 
@@ -65,6 +66,16 @@ function update() {
   for (let i = 0; i < numLines - 1; i++) {
     ctx.beginPath();
     ctx.moveTo(points[i].a, points[i].b);
+    if (followMouse) {
+      ctx.bezierCurveTo(
+        points[i].c,
+        points[i].d,
+        points[i].e,
+        points[i].f,
+        xPos,
+        yPos
+      );
+    }
     // ctx.lineTo(points[.i + 1].x, points[i + 1].y);
     // ctx.quadraticCurveTo(points[i].a, points[i].b, xPos, yPos);
     ctx.bezierCurveTo(
